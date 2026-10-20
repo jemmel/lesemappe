@@ -21,10 +21,12 @@ const stimme = (() => {
     document.documentElement.classList.toggle("ohne-stimme", !deutsch);
   };
   if (ss) { waehlen(); ss.addEventListener?.("voiceschanged", waehlen); } else document.documentElement.classList.add("ohne-stimme");
+  // Wörter, die die Stimme falsch liest: „Pommes“ französisch („Pomm“), „Mo.“ als Abkürzung für Montag
+  const AUSSPRACHE = [[/\bPommes\b/g, "Pommess"], [/\bMo\b/g, "Moo"]];
   return (text) => {
     if (!ss || !deutsch || !text) return;
     ss.cancel();
-    const u = new SpeechSynthesisUtterance(text);
+    const u = new SpeechSynthesisUtterance(AUSSPRACHE.reduce((t, [muster, ersatz]) => t.replace(muster, ersatz), text));
     u.voice = deutsch; u.lang = deutsch.lang; u.rate = 0.8; u.pitch = 1.05;
     ss.speak(u);
   };
