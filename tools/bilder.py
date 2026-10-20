@@ -137,20 +137,27 @@ def kaese(p):
 
 
 def kuchen(p):
-    # Gugelhupf mit Zuckerguss
-    form = [(220, 800), (180, 520), (300, 400), (700, 400), (820, 520), (780, 800)]
-    p.fill(p.poly_mask(form), "brown", angle=80, spacing=12, width=15, pressure=0.6)
-    for x in range(260, 760, 80):
-        p.line([(x, 470), (x + 10, 790)], "brown", 9)
-    p.line(form + [form[0]], "brown", 11)
-    guss = [(180, 520), (300, 390), (700, 390), (820, 520), (760, 560), (720, 500), (660, 590),
-            (600, 500), (520, 570), (450, 500), (380, 600), (320, 510), (240, 580)]
-    p.fill(p.poly_mask(guss), "pink", spacing=10, width=14, pressure=0.7)
-    p.stroke(guss, C["pink"], 9, 0.9, wob=1.2, smooth=True, closed=True)
-    p.fill(p.ellipse_mask(500, 395, 70, 26), "lightblue", spacing=6, width=8, pressure=0.4)
-    p.circle(500, 395, 72, 28, color="grey", width=6)
-    for x, y, col in [(300, 450, "yellow"), (420, 430, "blue"), (560, 445, "green"), (680, 450, "red"), (360, 520, "purple")]:
-        p.line([(x, y), (x + 20, y - 8)], col, 9)
+    # Geburtstagstorte: Teller, zwei Böden mit Sahne, Zuckerguss, Kerzen mit Flammen, Kirsche
+    p.fill(p.ellipse_mask(500, 820, 330, 50), "lightblue", spacing=10, width=13, pressure=0.45)
+    p.circle(500, 820, 335, 52, color="blue", width=9)
+    boden = [(220, 520), (780, 520), (780, 800), (220, 800)]
+    p.fill(p.poly_mask(boden), "brown", angle=5, spacing=11, width=15, pressure=0.8)
+    p.fill(p.poly_mask([(222, 640), (778, 640), (778, 680), (222, 680)]), "pink", angle=0, spacing=7, width=12, overshoot=4)
+    p.line(boden + [boden[0]], "brown", 10)
+    guss = [(205, 515), (795, 515), (795, 560), (740, 600), (700, 555), (630, 610), (570, 560),
+            (500, 615), (430, 560), (360, 605), (300, 555), (250, 595), (205, 560)]
+    p.fill(p.poly_mask(guss), "pink", spacing=9, width=13, pressure=0.85)
+    for x in (330, 500, 670):
+        kerze = [(x - 18, 510), (x + 18, 510), (x + 18, 340), (x - 18, 340)]
+        p.fill(p.poly_mask(kerze), "blue" if x == 500 else "green", angle=80, spacing=7, width=10, overshoot=3)
+        for y in (380, 430, 480):
+            p.line([(x - 16, y), (x + 16, y - 18)], "yellow", 6, 0.8)
+        p.line([(x, 340), (x, 315)], "black", 5)
+        flamme = [(x, 230), (x + 26, 285), (x, 318), (x - 26, 285)]
+        p.fill(p.poly_mask(flamme), "orange", spacing=6, width=10, overshoot=3)
+        p.stroke(flamme, C["yellow"], 7, 0.9, wob=1, smooth=True, closed=True)
+    p.fill(p.ellipse_mask(780, 480, 34, 32), "red", spacing=6, width=10, overshoot=3)
+    p.curve([(785, 450), (800, 400), (830, 380)], "green", 7)
 
 
 def marmelade(p):
