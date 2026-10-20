@@ -278,6 +278,8 @@ details.eltern p { margin: 6px 0 0; background: var(--hellblau); padding: 10px 1
 .text .kasten { background: var(--hellblau); border-radius: var(--radius); padding: 4px 20px; }
 .text small, .fuss { color: var(--tinte2); font-size: .95rem; }
 .fuss { text-align: center; margin-top: 40px; }
+.fusszeile { text-align: center; color: var(--tinte2); font-size: .9rem; padding: 0 16px 28px; margin-top: -40px; }
+.fusszeile a { color: var(--tinte2); }
 
 @media (max-width: 620px) {
   body { font-size: 1.05rem; }
@@ -297,5 +299,5 @@ details.eltern p { margin: 6px 0 0; background: var(--hellblau); padding: 10px 1
 }
 
 @media print {
-  .reiter, .kopf, .knopf, .vorlesen, details.eltern { display: none !important; }
+  .reiter, .kopf, .fusszeile, .knopf, .vorlesen, details.eltern { display: none !important; }
 }

@@ -16,8 +16,9 @@ const stimme = (() => {
   let deutsch = null;
   const waehlen = () => {
     const alle = ss ? ss.getVoices() : [];
-    deutsch = alle.find((v) => v.lang === "de-DE" && /google|anna|petra|helena|katja/i.test(v.name))
-      || alle.find((v) => v.lang?.startsWith("de")) || null;
+    // Stimmen auf dem Gerät zuerst: Online-Stimmen (z. B. „Google Deutsch“) schicken den Text an den Hersteller
+    const de = alle.filter((v) => v.lang?.startsWith("de"));
+    deutsch = de.find((v) => v.localService && v.lang === "de-DE") || de.find((v) => v.localService) || de[0] || null;
     document.documentElement.classList.toggle("ohne-stimme", !deutsch);
   };
   if (ss) { waehlen(); ss.addEventListener?.("voiceschanged", waehlen); } else document.documentElement.classList.add("ohne-stimme");

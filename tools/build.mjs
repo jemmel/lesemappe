@@ -66,6 +66,7 @@ function seite({ titel, basis, body, beschreibung }) {
 </head>
 <body>
 ${body}
+<footer class="fusszeile"><a href="${basis}impressum/">Impressum</a> · <a href="${basis}datenschutz/">Datenschutz</a></footer>
 </body>
 </html>
 `;
@@ -205,10 +206,18 @@ ${bild(l.rutschen[0].bild, "", "", 'class="figur"')}
   return seite({ titel: "Lesemappe", basis: "", body, beschreibung: "Lesen lernen mit Silben, Rutschen und Monster Mo: die Leseblätter aus der Schule zum Mitmachen und Ausdrucken." });
 }
 
-function elternHtml() {
-  const inhalt = readFileSync(path.join(root, "seiten", "eltern.html"), "utf8");
+// Textseiten aus seiten/<name>.html, erreichbar unter /<name>/
+const TEXTSEITEN = {
+  eltern: ["Für Eltern", "Wie Kinder lesen lernen und wie ihr mit der Lesemappe übt: Laute, Silben, wiederholtes Lesen, Verstehen."],
+  impressum: ["Impressum", "Impressum der Lesemappe."],
+  datenschutz: ["Datenschutz", "Datenschutzerklärung der Lesemappe: keine Cookies, kein Tracking, Fortschritt nur im Browser."],
+};
+
+function textHtml(name) {
+  const [titel, beschreibung] = TEXTSEITEN[name];
+  const inhalt = readFileSync(path.join(root, "seiten", `${name}.html`), "utf8");
   const body = `<div class="seite"><div class="kopf"><a class="zurueck" href="../">← Lesemappe</a></div><article class="text">${inhalt}</article></div>`;
-  return seite({ titel: "Für Eltern – Lesemappe", basis: "../", body, beschreibung: "Wie Kinder lesen lernen und wie ihr mit der Lesemappe übt: Laute, Silben, wiederholtes Lesen, Verstehen." });
+  return seite({ titel: `${titel} – Lesemappe`, basis: "../", body, beschreibung });
 }
 
 // ── Bauen ───────────────────────────────────────────────
@@ -227,7 +236,7 @@ const lektionen = readdirSync(path.join(root, "lektionen"))
   .sort((a, b) => a.nr - b.nr);
 
 schreib(path.join(aus, "index.html"), startHtml(lektionen));
-schreib(path.join(aus, "eltern", "index.html"), elternHtml());
+for (const name of Object.keys(TEXTSEITEN)) schreib(path.join(aus, name, "index.html"), textHtml(name));
 for (const l of lektionen) {
   schreib(path.join(aus, "lektion", String(l.nr), "index.html"), lektionHtml(l));
   schreib(path.join(aus, "pdf", `leseblatt-${l.nr}.pdf`), await lektionPdf(l));
