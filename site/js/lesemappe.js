@@ -342,5 +342,22 @@ function lektion(seite) {
   });
 }
 
+// Zurücksetzen (für Eltern): erst nachfragen, dann löschen und neu laden
+document.querySelectorAll("[data-zuruecksetzen]").forEach((box) => {
+  box.hidden = false;
+  const frage = box.querySelector("[data-frage]"), sicher = box.querySelector("[data-sicher]");
+  const zeigen = (fragen) => { frage.hidden = fragen; sicher.hidden = !fragen; };
+  frage.addEventListener("click", () => { zeigen(true); box.querySelector("[data-nein]").focus(); });
+  box.querySelector("[data-nein]").addEventListener("click", () => { zeigen(false); frage.focus(); });
+  box.querySelector("[data-ja]").addEventListener("click", () => {
+    try {
+      const was = box.dataset.zuruecksetzen;
+      const weg = Object.keys(localStorage).filter((k) => (was === "alles" ? k.startsWith("lesemappe:") : k === `lesemappe:${was}`));
+      weg.forEach((k) => localStorage.removeItem(k));
+    } catch { /* kein Speicher, nichts zu löschen */ }
+    location.reload();
+  });
+});
+
 const seite = document.querySelector("[data-lektion]");
 if (seite) lektion(seite); else startseite();

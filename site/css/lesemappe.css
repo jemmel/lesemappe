@@ -173,6 +173,12 @@ details.eltern p { margin: 6px 0 0; background: var(--hellblau); padding: 10px 1
 .knopf.gruen:active { box-shadow: 0 1px 0 #2a7a2c; }
 .knopf.leise { background: var(--karte); color: var(--tinte2); border: 2px solid var(--linie); box-shadow: none; }
 .knopf[hidden] { display: none; }
+.knopf.rot { background: var(--rot); box-shadow: 0 4px 0 #9e231f; }
+.knopf.rot:active { box-shadow: 0 1px 0 #9e231f; }
+.zuruecksetzen { text-align: center; margin-top: 22px; font-size: 1rem; }
+.zuruecksetzen .knopf { font-size: 1rem; padding: 8px 18px; }
+.zuruecksetzen [data-sicher] { display: inline-flex; flex-wrap: wrap; justify-content: center; align-items: center; gap: 8px; }
+.zuruecksetzen [hidden] { display: none !important; }
 .vorlesen { border: 0; background: var(--hellblau); border-radius: 999px; width: 46px; height: 46px; font-size: 1.4rem; flex: none; }
 .ohne-stimme .vorlesen, .ohne-stimme [data-stimme] { display: none !important; }
 

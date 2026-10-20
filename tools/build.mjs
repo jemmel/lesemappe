@@ -180,6 +180,7 @@ ${abschnitt("geschichte", "buch", `Geschichte: ${g.titel}`, "Lies die Geschichte
 ${abschnitt("bauen", "lola", "Wörter bauen", "Tipp die Buchstaben der Reihe nach an.", bauenHtml)}
 ${abschnitt("tage", "stern", "Lesetage", "Jeden Tag einmal lesen. Dann einen Stern anmalen.", tageHtml)}
 <p class="fuss"><a href="${b}eltern/">Für Eltern: So übt ihr mit der Lesemappe</a></p>
+<div class="zuruecksetzen" data-zuruecksetzen="lektion-${l.nr}" hidden><button type="button" class="knopf leise" data-frage>↺ Leseblatt ${l.nr} zurücksetzen</button><span data-sicher hidden>Alle Herzen, Haken und Sterne von Leseblatt ${l.nr} löschen? <button type="button" class="knopf rot" data-ja>Ja, löschen</button> <button type="button" class="knopf leise" data-nein>Nein</button></span></div>
 </div>`;
   return seite({ titel: `Leseblatt ${l.nr}: ${l.titel} – Lesemappe`, basis: b, body, beschreibung: `Lesen üben mit ${l.laute.join(", ")}: Rutschen, Silbenflug, Geschichte und Wörter bauen.` });
 }
@@ -202,6 +203,7 @@ ${bild(l.rutschen[0].bild, "", "", 'class="figur"')}
 <div class="lektionen">${karten.join("\n")}</div>
 <div class="eltern-hinweis">${bild("buch")}<div><p><strong>Für Eltern:</strong> Jeden Tag etwa 10 Minuten, gemeinsam am Tablet oder auf Papier. Jedes Leseblatt gibt es auch als PDF zum Ausdrucken.</p>
 <a href="eltern/">So übt ihr mit der Lesemappe – und warum</a></div></div>
+<div class="zuruecksetzen" data-zuruecksetzen="alles" hidden><button type="button" class="knopf leise" data-frage>↺ Alles zurücksetzen</button><span data-sicher hidden>Fortschritt aller Leseblätter und den Namen löschen? <button type="button" class="knopf rot" data-ja>Ja, löschen</button> <button type="button" class="knopf leise" data-nein>Nein</button></span></div>
 </div>`;
   return seite({ titel: "Lesemappe", basis: "", body, beschreibung: "Lesen lernen mit Silben, Rutschen und Monster Mo: die Leseblätter aus der Schule zum Mitmachen und Ausdrucken." });
 }
