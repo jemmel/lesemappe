@@ -19,6 +19,12 @@ const NAMEN = {
   schokolade: "Schokolade", lola: "Lola", mama: "Mama", oma: "Oma", lama: "Lama", monster: "Monster Mo",
 };
 
+// Wort zum Bild, wenn die Bilder vorgestellt werden
+const BILDWORT = { ...NAMEN, monster: "Mo", herz: "mag" };
+
+/** Kann das Kind das Wort schon lesen? Nur Buchstaben der Lektion. */
+const lesbar = (wort, laute) => [...wort.toLowerCase()].every((c) => laute.some((l) => l.toLowerCase() === c));
+
 /** Wort mit farbigen Silben; Satzzeichen bleiben schwarz. */
 function silbenHtml(wort, mitLuecke = false) {
   const [, kern, zeichen] = wort.match(/^(.*?)([.,!?]*)$/);
@@ -27,6 +33,7 @@ function silbenHtml(wort, mitLuecke = false) {
 }
 
 const ELTERN = {
+  bilder: "Stellt zuerst die Bilder vor: Was ist das? Die Namen unter den Bildern kann das Kind mit den Buchstaben dieser Lektion selbst lesen. Die anderen Wörter (hier eingeblendet) sagt ihr; später stehen sie im Leseblatt nur als Bild. Das Herz heißt „mag“. Antippen spricht das Wort.",
   rutschen: "Das Kind „rutscht“ mit dem Finger die Rutsche hinunter und zieht dabei die Laute lang: Lllooolllaaa. Laute sprechen, nicht Buchstabennamen: „mmm“, nicht „em“. Erst danach das Wort normal sagen. Der Knopf zeigt das Tempo, die Stimme kommt erst am Ende.",
   herzen: "Das Herz heißt „mag“. Das Kind liest den Namen und sagt den Satz mit dem Bild: „Lola mag Kirschen.“ Die Lücke zeigt die Silben. Danach malt es das Herz an. Wer das Bild antippt, hört den Satz.",
   monster: "Unsinnsilben sind Absicht: Das Kind kann sie nicht raten, es muss jeden Laut lesen. Erst langsam, an späteren Tagen schneller. Jede gelesene Reihe abhaken.",
@@ -132,7 +139,21 @@ ${g.zeilen.map(zeile).join("\n")}
   const tageHtml = `<div class="tage">${Array.from({ length: 7 }, (_, i) =>
     `<button type="button" aria-pressed="false" aria-label="Tag ${i + 1}">${bild("stern-leer", "", b)}<span>${i + 1}. Tag</span></button>`).join("")}</div>`;
 
+  const bildNamen = [...new Set([
+    ...l.rutschen.map((r) => r.bild), ...l.herzsaetze.map((h) => h.bild), "herz",
+    ...l.geschichte.zeilen.flat().filter((t) => NAMEN[t] && /^[a-z]/.test(t)),
+    ...l.geschichte.fragen.filter((f) => f.art === "bild").flatMap((f) => f.antworten), ...l.bauen.map((x) => x.bild),
+  ])];
+  const lesbare = bildNamen.filter((n) => lesbar(BILDWORT[n], l.laute));
+  const bilderHtml = `<div class="bilder">${[...lesbare, ...bildNamen.filter((n) => !lesbare.includes(n))].map((n) => {
+    const wort = BILDWORT[n];
+    const lesen = lesbare.includes(n);
+    const name = n === "herz" ? "Herz = mag" : wort;
+    return `<button type="button" class="bildkarte${lesen ? " lesbar" : ""}" data-sprich="${esc(n === "herz" ? "Herz heißt mag" : wort)}" aria-label="${esc(name)}">${bild(n, "", b)}${lesen ? silbenHtml(wort) : `<span class="nur-eltern">${esc(name)}</span>`}</button>`;
+  }).join("")}</div>`;
+
   const teile = [
+    ["bilder", "sonne", "Bilder"],
     ["rutschen", "rutsche", "Rutschen"],
     ["herzen", "herz", "Wer mag was?"],
     ["monster", "monster", "Monster Mo"],
@@ -149,6 +170,7 @@ ${g.zeilen.map(zeile).join("\n")}
 <div class="lektion-kopf"><span class="buchstabe" aria-hidden="true">${esc(l.buchstabe)}</span>
 <div><div class="unter">Leseblatt ${l.nr}</div><h1>${esc(l.titel)}</h1><div class="laute" aria-label="Laute">${l.laute.map((x) => `<span>${esc(x)}${esc(x.toLowerCase())}</span>`).join("")}</div></div></div>
 ${reiter}
+${abschnitt("bilder", "sonne", "Das sind die Bilder", "Was ist das? Die Namen mit Farbe kannst du schon lesen.", bilderHtml)}
 ${abschnitt("rutschen", "rutsche", "Rutschen", "Rutsch mit! Zieh die Laute ganz lang.", `<div class="rutschen">${rutschenHtml}</div>`)}
 ${abschnitt("herzen", "herz", "Wer mag was?", "Lies den Namen. Dann mal das Herz an.", `<div class="herzsaetze">${herzHtml}</div>`)}
 ${abschnitt("monster", "monster", "Monster Mo", "Mo liest komische Wörter. Kannst du das auch?", monsterHtml)}

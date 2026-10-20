@@ -133,6 +133,18 @@ details.eltern p { margin: 6px 0 0; background: var(--hellblau); padding: 10px 1
   border: 3px solid currentColor; border-top: 0; border-radius: 0 0 999px 999px; opacity: .55;
 }
 
+/* ── Bilder vorstellen ───────────────────────────────── */
+.bilder { display: grid; grid-template-columns: repeat(auto-fill, minmax(118px, 1fr)); gap: 12px; }
+.bildkarte {
+  display: flex; flex-direction: column; align-items: center; justify-content: space-between; gap: 6px; min-height: 150px;
+  border: 2px solid var(--linie); background: var(--karte); border-radius: 18px; padding: 10px 6px 8px;
+}
+.bildkarte img { height: 86px; width: auto; max-width: 100%; object-fit: contain; }
+.bildkarte .wort { font-size: 2rem; line-height: 1.1; }
+.bildkarte.lesbar { border-color: var(--gelb); }
+.nur-eltern { display: none; font-size: 1rem; color: var(--tinte2); }
+.abschnitt:has(details.eltern[open]) .nur-eltern { display: block; }
+
 /* ── Rutschen ─────────────────────────────────────────── */
 .rutschen { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 18px; }
 .rutsche { display: flex; flex-direction: column; align-items: center; gap: 8px; }
