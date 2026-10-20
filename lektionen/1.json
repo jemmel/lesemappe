@@ -1,0 +1,55 @@
+{
+  "nr": 1,
+  "titel": "Lola, Mama, Oma",
+  "buchstabe": "Mm",
+  "laute": ["L", "M", "O", "A"],
+  "farbe": "red",
+  "rutschen": [
+    { "wort": "Lola", "bild": "lola" },
+    { "wort": "Momo", "bild": "monster" },
+    { "wort": "Lama", "bild": "lama" }
+  ],
+  "herzsaetze": [
+    { "silben": ["Lo", "la"], "bild": "kirsche", "satz": "Lola mag Kirschen." },
+    { "silben": ["Ma", "ma"], "bild": "kaese", "satz": "Mama mag Käse." },
+    { "silben": ["Mo", "la"], "bild": "kuchen", "satz": "Mola mag Kuchen." },
+    { "silben": ["O", "ma"], "bild": "marmelade", "satz": "Oma mag Marmelade." },
+    { "silben": ["A", "mo"], "bild": "eis", "satz": "Amo mag Eis." },
+    { "silben": ["Mo", "mo"], "bild": "pommes", "satz": "Momo mag Pommes." },
+    { "silben": ["Lo", "la"], "bild": "schokolade", "satz": "Lola mag Schokolade." }
+  ],
+  "monsterreihen": ["Lo lo mo", "La ma la", "Ma lo ma", "Mo lo la", "A la lo"],
+  "silbenteppich": [
+    ["Ma", "Lo", "La", "Ma", "mo", "ma", "la", "lo", "am", "om", "mo", "ma"],
+    ["la", "lo", "la", "Mo", "am", "Am", "Lo", "Al", "al", "ma", "Al", "Am"],
+    ["om", "Am", "lo", "Lo", "La", "am", "mo", "om", "Mo", "ma", "Ma", "ma"],
+    ["Al", "Lo", "ol", "Mo", "Ol", "Al", "Am", "al", "la", "Lo", "Al", "Mo"]
+  ],
+  "fluege": 20,
+  "geschichte": {
+    "titel": "Mo",
+    "bild": "monster",
+    "zeilen": [
+      ["Lo-la", "♥", "kirsche"],
+      ["Ma-ma", "♥", "kaese"],
+      ["O-ma", "♥", "kuchen"],
+      ["La-ma", "♥", "eis"],
+      ["Mo", "♥", "schokolade", "pommes", "kirsche", "kaese", "kuchen", "!"],
+      ["O", "la", "la,", "Mo!"],
+      ["Lo-la", "♥", "Mo."]
+    ],
+    "vorlesen": "Lola mag Kirschen. Mama mag Käse. Oma mag Kuchen. Lama mag Eis. Mo mag Schokolade, Pommes, Kirschen, Käse und Kuchen! O la la, Mo! Lola mag Mo.",
+    "fragen": [
+      { "frage": "Was mag Oma?", "art": "bild", "antworten": ["kaese", "kuchen", "eis"], "richtig": "kuchen" },
+      { "frage": "Wer mag Käse?", "art": "wort", "antworten": ["Lola", "Mama", "Oma"], "richtig": "Mama" },
+      { "frage": "Wer mag alles?", "art": "wort", "antworten": ["Lama", "Mo", "Oma"], "richtig": "Mo" }
+    ]
+  },
+  "bauen": [
+    { "wort": "Mo", "bild": "monster", "extra": "a" },
+    { "wort": "Oma", "bild": "oma", "extra": "l" },
+    { "wort": "Mama", "bild": "mama", "extra": "o" },
+    { "wort": "Lama", "bild": "lama", "extra": "o" },
+    { "wort": "Lola", "bild": "lola", "extra": "m" }
+  ]
+}

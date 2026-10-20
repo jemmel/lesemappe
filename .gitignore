@@ -1,0 +1,8 @@
+.env
+.wrangler/
+__pycache__/
+node_modules/
+_site/
+
+# Foto des Original-Leseblatts (mit Namen des Kindes), nur lokal
+PXL_*.jpg

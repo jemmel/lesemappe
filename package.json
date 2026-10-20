@@ -1,0 +1,16 @@
+{
+  "name": "lesemappe",
+  "version": "1.0.0",
+  "description": "Lesemappe: Leseblätter zum Mitmachen und Ausdrucken (lesemappe.janemmel.de)",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "bilder": "python tools/bilder.py",
+    "build": "node tools/build.mjs",
+    "start": "node tools/build.mjs && npx --yes http-server@14.1.1 _site -p 8097 -c-1"
+  },
+  "devDependencies": {
+    "@cantoo/fontkit": "^2.0.12",
+    "@cantoo/pdf-lib": "^2.11.1"
+  }
+}
